@@ -3,7 +3,7 @@ library(plyr)
 
 #load the datasets:
 hitting <- read.csv("hitting.csv", header=TRUE)
-stadiums <- read.csv("stadiums_v3.csv")
+stadiums <- read.csv("stadiums.csv")
 
 #change the Factor variables to string to make them easier to
 #work with:
