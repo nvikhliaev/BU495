@@ -1,4 +1,5 @@
 library(plyr)
+library(ggplot2)
 
 #load the datasets:
 hitting <- read.csv("hitting.csv", header=TRUE)
@@ -82,6 +83,11 @@ test = merge(stadiums,dfinal, all.x=TRUE, by=c("Team","yearID"))
 #the outer join generates some NAs in the instance that a team had no "star players"
 #for a particular year, we set these to 0:
 test$star_players[is.na(test$star_players)] = 0
+
+# graph of all star players v. average attendance, by team, each year
+graph <- ggplot(data = test, aes(x = star_players, y = Avg.Attendance)) + stat_smooth(method="lm") +
+  geom_point() + facet_wrap(~yearID) + ggtitle("Star players v. Average Attendance")
+ggsave("plot.png", height = 10, width = 10)
 
 attach(test)
 
