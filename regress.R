@@ -1,4 +1,3 @@
-library(Jmisc)
 library(plyr)
 
 #load the datasets:
@@ -47,7 +46,7 @@ for (i in 1:16 ) {
   x =table(ddat[[i]]$teamID)
   teams[[i]]  = data.frame(names(x))
   teams[[i]]$starplayers=x
-  teams[[i]] = addCol(teams[[i]], i+1994)
+  teams[[i]]$yearID <- i+1994
 }
 
 #combine the 16 datasets above into a single dataframe:
@@ -78,7 +77,7 @@ stadiums$Team[stadiums$Team == 'ML4'] <-'MIL'
 
 #perform an outer join of the stadiums dataset and our dataset of how many "star players"
 #each team had for every year:
-test = merge( stadiums,dfinal, all.x=TRUE, by=c("Team","yearID"))
+test = merge(stadiums,dfinal, all.x=TRUE, by=c("Team","yearID"))
 
 #the outer join generates some NAs in the instance that a team had no "star players"
 #for a particular year, we set these to 0:
