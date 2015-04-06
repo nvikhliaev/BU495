@@ -85,9 +85,11 @@ test = merge(stadiums,dfinal, all.x=TRUE, by=c("Team","yearID"))
 test$star_players[is.na(test$star_players)] = 0
 
 # graph of all star players v. average attendance, by team, each year
-graph <- ggplot(data = test, aes(x = star_players, y = Avg.Attendance)) + stat_smooth(method="lm") +
+graph <- ggplot(data = test, aes(x = star_players, y = Avg.Attendance, colour = Team, group = yearID)) + 
+  stat_smooth(method="lm", se = FALSE) +
   geom_point() + facet_wrap(~yearID) + ggtitle("Star players v. Average Attendance")
-ggsave("plot.png", height = 10, width = 10)
+
+ggsave("plot.png", height = 8, width = 8)
 
 attach(test)
 
